@@ -168,3 +168,7 @@ jump 3
 
 .3
 echo {cSec}--Player--
+round posX {x}
+round posY {y}
+round posZ {z}
+echo  &7{posX} {posY} {posZ}
