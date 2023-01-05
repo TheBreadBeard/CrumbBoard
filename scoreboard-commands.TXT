@@ -1,0 +1,215 @@
+#!CMD /scoreboard <type> (primary) (secondary)
+
+var Off off
+var On on
+var Help help
+var Theme theme
+
+if {type==Off} off
+if {type==On} on
+if {type==Help} help
+if {type==Theme} theme
+exit
+
+.help
+echo /scoreboard theme (primary) (secondary) : changes the colour scheme of the scoreboard
+echo /scoreboard theme list : shows all available colour names
+echo /scoreboard on : activates the scoreboard
+echo /scoreboard off : deactivates the scoreboard
+exit
+.off
+global scoreboardState off
+exit
+.on
+global scoreboardState on
+exit
+
+.theme
+
+var Dark_red &4
+var Red &c
+var Gold &6
+var Yellow &e
+var Dark_green &2
+var Green &a
+var Aqua &b
+var Dark_aqua &3
+var Dark_blue &1
+var Blue &9
+var Light_purple &d
+var Dark_purple &5
+var White &f
+var Gray &7
+var Dark_gray &8
+var Black &0
+
+var dark_red dark_red
+var red red
+var gold gold
+var yellow yellow
+var dark_green dark_green
+var green green
+var aqua aqua
+var dark_aqua dark_aqua
+var dark_blue dark_blue
+var blue blue
+var light_purple light_purple
+var dark_purple dark_purple
+var white white
+var gray gray
+var dark_gray dark_gray
+var black black
+var list list
+
+if {primary==list} list
+if {primary==dark_red} pdr
+if {primary==red} pr
+if {primary==gold} pg
+if {primary==yellow} py
+if {primary==dark_green} pdg
+if {primary==green} pgr
+if {primary==aqua} pa
+if {primary==dark_aqua} pda
+if {primary==dark_blue} pdb
+if {primary==blue} pb
+if {primary==light_purple} plp
+if {primary==dark_purple} pdp
+if {primary==white} pw
+if {primary==gray} pgr
+if {primary==dark_gray} pdgr
+if {primary==black} pbl sec
+
+.list
+echo &4 dark_red
+echo &c red
+echo &6 gold
+echo &e yellow
+echo &2 dark_green
+echo &a green
+echo &b aqua
+echo &3 dark_aqua
+echo &1 dark_blue
+echo &9 blue
+echo &d light_purple
+echo &5 dark_purple
+echo &f white
+echo &7 gray
+echo &8 dark_gray
+echo &0 black
+exit
+.pdr
+global scoreboardPrimary {Dark_red}
+jump sec
+.pr
+global scoreboardPrimary {Red}
+jump sec
+.pg
+global scoreboardPrimary {Gold}
+jump sec
+.py
+global scoreboardPrimary {Yellow}
+jump sec
+.pdg
+global scoreboardPrimary {Dark_green}
+jump sec
+.pgr
+global scoreboardPrimary {Green}
+jump sec
+.pa
+global scoreboardPrimary {A}
+jump sec
+.pda
+global scoreboardPrimary {Dark_aqua}
+jump sec
+.pdb
+global scoreboardPrimary {Dark_blue}
+jump sec
+.pb
+global scoreboardPrimary {Blue}
+jump sec
+.plp
+global scoreboardPrimary {Light_purple}
+jump sec
+.pdp
+global scoreboardPrimary {Dark_purple}
+jump sec
+.pw
+global scoreboardPrimary {White}
+jump sec
+.pgr
+global scoreboardPrimary {Gray}
+jump sec
+.pdgr
+global scoreboardPrimary {Dark_gray}
+jump sec
+.pbl
+global scoreboardPrimary {Black}
+
+.sec
+if {secondary==dark_red} sdr
+if {secondary==red} sr
+if {secondary==gold} sg
+if {secondary==yellow} sy
+if {secondary==dark_green} sdg
+if {secondary==green} sgr
+if {secondary==aqua} sa
+if {secondary==dark_aqua} sda
+if {secondary==dark_blue} sdb
+if {secondary==blue} sb
+if {secondary==light_purple} slp
+if {secondary==dark_purple} sdp
+if {secondary==white} sw
+if {secondary==gray} sgr
+if {secondary==dark_gray} sdgr
+if {secondary==black} sbl stop
+
+.sdr
+global scoreboardSecondary {Dark_red}
+exit
+.sr
+global scoreboardSecondary {Red}
+exit
+.sg
+global scoreboardSecondary {Gold}
+exit
+.sy
+global scoreboardSecondary {Yellow}
+exit
+.sdg
+global scoreboardSecondary {Dark_green}
+exit
+.sgr
+global scoreboardSecondary {Green}
+exit
+.sa
+global scoreboardSecondary {Aqua}
+exit
+.sda
+global scoreboardSecondary {Dark_aqua}
+exit
+.sdb
+global scoreboardSecondary {Dark_blue}
+exit
+.sb
+global scoreboardSecondary {Blue}
+exit
+.slp
+global scoreboardSecondary {Light_purple}
+exit
+.sdp
+global scoreboardSecondary {Dark_purple}
+exit
+.sw
+global scoreboardSecondary {White}
+exit
+.sgr
+global scoreboardSecondary {Gray}
+exit
+.sdgr
+global scoreboardSecondary {Dark_gray}
+exit
+.sbl
+global scoreboardSecondary {Black}
+
+.stop
+exit
