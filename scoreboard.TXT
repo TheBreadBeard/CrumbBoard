@@ -10,7 +10,8 @@ if {global.scoreboardState==on} ScoreboardOn
 exit
 .rescue
 global scoreboard.State off
-killall global
+#executes /rescue
+rescue
 exit
 .ScoreboardOn
 
