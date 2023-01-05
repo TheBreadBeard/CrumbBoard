@@ -1,0 +1,18 @@
+#!CMD /rescue
+
+killall global
+trace clear
+trace stop
+kickall
+tnt off
+loader stop
+if {fire} resFire resNoFire
+.resNoFire
+if {freeze} resFreeze
+freeze
+jump resFreeze
+.resFire
+fire
+jump resNoFire
+.resFreeze
+echoactionbar &4 rescue mode
