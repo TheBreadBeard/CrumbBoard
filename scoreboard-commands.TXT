@@ -121,7 +121,7 @@ jump sec
 global scoreboardPrimary {Green}
 jump sec
 .pa
-global scoreboardPrimary {A}
+global scoreboardPrimary {Aqua}
 jump sec
 .pda
 global scoreboardPrimary {Dark_aqua}
