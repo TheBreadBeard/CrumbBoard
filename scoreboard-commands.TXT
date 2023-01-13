@@ -18,7 +18,7 @@ echo &8/&escoreboard theme &8[&eprimary&8]&e &8[&esecondary&8]&e &7: changes the
 echo &8/&escoreboard theme list &7: shows all available colour names
 echo &8/&escoreboard on &7: activates the scoreboard
 echo &8/&escoreboard off &7: deactivates the scoreboard
-echo &8/&escoreboard spacer &8[&espacer&8]&e
+echo &8/&escoreboard spacer &8[&espacer&8]&e Verändere die symbole neben den Abschnitts Überschriften
 exit
 .JPoff
 global scoreboardState off
