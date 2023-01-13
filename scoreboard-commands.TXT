@@ -1,4 +1,4 @@
-#!CMD /scoreboard <type> (<primary>) (<secondary>) (<vtrue>) (<vfalse>) (<neutral>) (<danger>)
+#!CMD /cb <type> (<primary>) (<secondary>) (<vtrue>) (<vfalse>) (<neutral>) (<danger>)
 
 var Off off
 var On on
@@ -14,11 +14,11 @@ if {type==Spacer} JPspacer
 exit
 
 .JPhelp
-echo &8/&escoreboard theme &8[&eprimary&8]&e &8[&esecondary&8]&e &8[&etrue&8]&e &8[&efalse&8]&e &8[&eneutral&8]&e &8[&edanger&8]&e&7: changes the colour scheme of the scoreboard
-echo &8/&escoreboard theme list &7: shows all available colour names. Just put the colour you want in the brackets
-echo &8/&escoreboard on &7: activates the scoreboard
-echo &8/&escoreboard off &7: deactivates the scoreboard
-echo &8/&escoreboard spacer &8[&espacer&8]&e change the look of the section titles by inserting symbols
+echo &8/&ecb theme &8[&eprimary&8]&e &8[&esecondary&8]&e &8[&etrue&8]&e &8[&efalse&8]&e &8[&eneutral&8]&e &8[&edanger&8]&e&7: changes the colour scheme of the scoreboard
+echo &8/&ecb theme list &7: shows all available colour names. Just put the colour you want in the brackets
+echo &8/&ecb on &7: activates the scoreboard
+echo &8/&ecb off &7: deactivates the scoreboard
+echo &8/&ecb spacer &8[&espacer&8]&e change the look of the section titles by inserting symbols
 exit
 .JPoff
 global scoreboardState off
