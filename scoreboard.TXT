@@ -15,12 +15,25 @@ rescue
 exit
 .ScoreboardOn
 
+#Theme and Spacer check/ default
 if {global.scoreboardPrimary.isset} primSet
 global scoreboardPrimary &e
 .primSet
 if {global.scoreboardSecondary.isset} secset
 global scoreboardSecondary &f&l
 .secset
+if {global.scoreboardvTrue.isset} sectrue
+global scoreboardvTrue &a
+.sectrue
+if {global.scoreboardvFalse.isset} secfalse
+global scoreboardvFalse &c
+.secfalse
+if {global.scoreboardNeutral.isset} secneutral
+global scoreboardNeutral &7
+.secneutral
+if {global.scoreboardDanger.isset} secdanger
+global scoreboardDanger &4
+.secdanger
 if {global.scoreboardSpacer.isset} spacerset
 global scoreboardSpacer --
 .spacerset
@@ -28,9 +41,13 @@ global scoreboardSpacer --
 var cPrim {global.scoreboardPrimary}
 var cSec {global.scoreboardSecondary}&l
 var cSpacer {global.scoreboardSpacer} 
+var cTrue {global.scoreboardvTrue} 
+var cFalse {global.scoreboardvFalse} 
+var cNeutral {global.scoreboardNeutral} 
+var cDanger {global.scoreboardDanger}&l
 
 #time
-echo {cPrim}Time: &7{time}
+echo {cPrim}Time: {cNeutral}{time}
 
 #uptime
 var t {ticks/20}
@@ -54,7 +71,7 @@ var f {min}
 call format
 var min {f}
 
-echo {cPrim}Uptime: &7{t}{min}{sec}
+echo {cPrim}Uptime: {cNeutral}{t}{min}{sec}
 jump afterformat
 
 #in: f, out: f
@@ -69,46 +86,46 @@ return
 
 #Region
 echo {cSec}{cSpacer}Region{cSpacer}
-echo {cPrim}Type: &7{const.region_type}
+echo {cPrim}Type: {cNeutral}{const.region_type}
 
 if  {const.tnt_onlytb==true} onlyTB noOnlyTB
 .onlyTB
-echo {cPrim}TNT: &aonlyTB
+echo {cPrim}TNT: {cTrue}onlyTB
 jump 0-1
 .noOnlyTB
 if {const.tnt==true} tnt notnt
 .tnt
-echo {cPrim}TNT: &4&lon
+echo {cPrim}TNT: {cDanger}on
 jump 0-1
 .notnt
-echo {cPrim}TNT: &coff
+echo {cPrim}TNT: {cFalse}off
 jump 0-1
 
 .0-1
 if {const.freeze==true} freeze noFreeze
 .freeze
-echo {cPrim}Freeze: &aon
+echo {cPrim}Freeze: {cTrue}on
 jump 0-2
 .noFreeze
-echo {cPrim}Freeze: &coff
+echo {cPrim}Freeze: {cFalse}off
 jump 0-2
 
 .0-2
 if {const.protect==true} protect noProt
 .protect
-echo {cPrim}Protect: &aon
+echo {cPrim}Protect: {cTrue}on
 jump 0-3
 .noProt
-echo {cPrim}Protect: &coff
+echo {cPrim}Protect: {cFalse}off
 jump 0-3
 
 .0-3
 if {const.fire==true} fire noFire
 .fire
-echo {cPrim}Fire: &aon
+echo {cPrim}Fire: {cTrue}on
 jump 0-4
 .noFire
-echo {cPrim}Fire: &coff
+echo {cPrim}Fire: {cFalse}off
 jump 0-4
 
 echo
@@ -116,18 +133,18 @@ echo
 .0-4
 if {const.tps>=const.tps_limit*80/100} tps1 tps2
 .tps1
-var tps &a
+var tps {cTrue}
 jump tps
 .tps2
 if {const.tps<=const.tps_limit*20/100} tps3 tps4
 .tps3
-var tps &c
+var tps {cFalse}
 jump tps
 .tps4
 var tps &e
 jump tps
 .tps
-echo {cPrim}TPS: {tps}{const.tps} &f| &7{const.tps_limit}
+echo {cPrim}TPS: {tps}{const.tps} &f| {cNeutral}{const.tps_limit}
 
 .1
 
@@ -139,30 +156,30 @@ var trsingle IDLE_SINGLE
 
 if {const.trace_status==tridle} trIdle trNoIdle
 .trIdle
-echo {cPrim}Trace: &coff
+echo {cPrim}Trace: {cFalse}off
 jump 2
 .trNoIdle
 if {const.trace_status==trexpl} trExpl trNoExpl
 .trExpl
-echo {cPrim}Trace: &aauto &7(explode)
+echo {cPrim}Trace: {cTrue}auto {cNeutral}(explode)
 jump 1-2
 .trNoExpl
 if {const.trace_status==trignite} trIgn trNoIgn
 .trIgn
-echo {cPrim}Trace: &aauto &7(ignition)
+echo {cPrim}Trace: {cTrue}auto {cNeutral}(ignition)
 jump 1-2
 .trNoIgn
 if {const.trace_status==trsingle} trSing trNoSing
 .trSing
-echo {cPrim}Trace: &asingle
+echo {cPrim}Trace: {cTrue}single
 jump 1-2
 .trNoSing
 if {const.trace==true} trON trNoOn
 .trON
-echo {cPrim}Trace: &aon
+echo {cPrim}Trace: {cTrue}on
 jump 1-2
 .trNoOn
-echo {cPrim}Trace: &coff
+echo {cPrim}Trace: {cFalse}off
 jump 2
 
 .1-2
@@ -179,7 +196,7 @@ var loend END
 
 if {const.loader_status==lorun} loRun loNoRun
 .loRun
-echo {cPrim}Loader: &aon
+echo {cPrim}Loader: {cTrue}on
 jump 3
 .loNoRun
 if {const.loader_status==losetup} loSetup loNoSetup
@@ -189,25 +206,25 @@ jump 3
 .loNoSetup
 if {const.loader_status==losingle} loSingle loNoSingle
 .loSingle
-echo {cPrim}Loader: &asingle
+echo {cPrim}Loader: {cTrue}single
 jump 3
 .loNoSingle
 if {const.loader_status==lopause} loPause loNoPause
 .loPause
-echo {cPrim}Loader: &c&opause
+echo {cPrim}Loader: {cFalse}&opause
 jump 3
 .loNoPause
 if {const.loader_status==loend} loEnd loNoEnd
 .loEnd
-echo {cPrim}Loader: &cend
+echo {cPrim}Loader: {cFalse}end
 jump 3
 .loNoEnd
 if {const.loader_status==looff} loOff loNoOff
 .loOff
-echo {cPrim}Loader: &coff
+echo {cPrim}Loader: {cFalse}off
 jump 3
 .loNoOff
-echo {cPrim}Loader: &aon
+echo {cPrim}Loader: {cTrue}on
 jump 3
 
 .3
@@ -216,4 +233,4 @@ round posX {x}
 round posY {y}
 round posZ {z}
 echo {cPrim}{name}
-echo &7{posX} {posY} {posZ}
+echo {cNeutral}{posX} {posY} {posZ}
