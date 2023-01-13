@@ -18,14 +18,57 @@ exit
 if {global.scoreboardPrimary.isset} primSet
 global scoreboardPrimary &e
 .primSet
-if {global.scoreboardSecondary.isset} 00
+if {global.scoreboardSecondary.isset} secset
 global scoreboardSecondary &f&l
-.00
+.secset
+if {global.scoreboardSpacer.isset} spacerset
+global scoreboardSpacer --
+.spacerset
+
 var cPrim {global.scoreboardPrimary}
 var cSec {global.scoreboardSecondary}&l
+var cSpacer {global.scoreboardSpacer} 
 
+#time
 echo {cPrim}Time: &7{time}
-echo {cSec}--Region--
+
+#uptime
+var t {ticks/20}
+floor t t
+
+var sec {t}
+var t {t/60}
+floor t t
+var sec {sec-t*60}
+
+var min {t}
+var t {t/60}
+floor t t
+var min {min-t*60}
+
+var f {sec}
+call format
+var sec {f}
+
+var f {min}
+call format
+var min {f}
+
+echo {cPrim}Uptime: &7{t}{min}{sec}
+jump afterformat
+
+#in: f, out: f
+.format
+if {f>=10} woanders
+var f :0{f}
+return
+.woanders
+var f :{f}
+return
+.afterformat
+
+#Region
+echo {cSec}{cSpacer}Region{cSpacer}
 echo {cPrim}Type: &7{const.region_type}
 
 if  {const.tnt_onlytb==true} onlyTB noOnlyTB
@@ -168,8 +211,9 @@ echo {cPrim}Loader: &aon
 jump 3
 
 .3
-echo {cSec}--Player--
+echo {cSec}{cSpacer}Player{cSpacer}
 round posX {x}
 round posY {y}
 round posZ {z}
-echo  &7{posX} {posY} {posZ}
+echo {cPrim}{name}
+echo &7{posX} {posY} {posZ}
