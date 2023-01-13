@@ -1,4 +1,4 @@
-#!CMD /scoreboard <type> (<primary>) (<secondary>)
+#!CMD /scoreboard <type> (<primary>) (<secondary>) (<vtrue>) (<vfalse>) (<neutral>) (<danger>)
 
 var Off off
 var On on
@@ -14,11 +14,11 @@ if {type==Spacer} JPspacer
 exit
 
 .JPhelp
-echo &8/&escoreboard theme &8[&eprimary&8]&e &8[&esecondary&8]&e &7: changes the colour scheme of the scoreboard
-echo &8/&escoreboard theme list &7: shows all available colour names
+echo &8/&escoreboard theme &8[&eprimary&8]&e &8[&esecondary&8]&e &8[&etrue&8]&e &8[&efalse&8]&e &8[&eneutral&8]&e &8[&edanger&8]&e&7: changes the colour scheme of the scoreboard
+echo &8/&escoreboard theme list &7: shows all available colour names. Just put the colour you want in the brackets
 echo &8/&escoreboard on &7: activates the scoreboard
 echo &8/&escoreboard off &7: deactivates the scoreboard
-echo &8/&escoreboard spacer &8[&espacer&8]&e Verändere die symbole neben den Abschnitts Überschriften
+echo &8/&escoreboard spacer &8[&espacer&8]&e change the look of the section titles by inserting symbols
 exit
 .JPoff
 global scoreboardState off
@@ -32,7 +32,7 @@ exit
 .JPtheme
 
 var Dark_red &4
-var Red &e
+var Red &c
 var Gold &6
 var Yellow &e
 var Dark_green &2
@@ -86,7 +86,7 @@ if {primary==black} pbl sec
 
 .JPlist
 echo &4 dark_red
-echo &e red
+echo &c red
 echo &6 gold
 echo &e yellow
 echo &2 dark_green
@@ -166,55 +166,320 @@ if {secondary==dark_purple} sdp
 if {secondary==white} sw
 if {secondary==gray} sgr
 if {secondary==dark_gray} sdgr
-if {secondary==black} sbl stop
+if {secondary==black} sbl vtrue
 
 .sdr
 global scoreboardSecondary {Dark_red}
-exit
+jump vtrue
 .sr
 global scoreboardSecondary {Red}
-exit
+jump vtrue
 .sg
 global scoreboardSecondary {Gold}
-exit
+jump vtrue
 .sy
 global scoreboardSecondary {Yellow}
-exit
+jump vtrue
 .sdg
 global scoreboardSecondary {Dark_green}
-exit
+jump vtrue
 .sgr
 global scoreboardSecondary {Green}
-exit
+jump vtrue
 .sa
 global scoreboardSecondary {Aqua}
-exit
+jump vtrue
 .sda
 global scoreboardSecondary {Dark_aqua}
-exit
+jump vtrue
 .sdb
 global scoreboardSecondary {Dark_blue}
-exit
+jump vtrue
 .sb
 global scoreboardSecondary {Blue}
-exit
+jump vtrue
 .slp
 global scoreboardSecondary {Light_purple}
-exit
+jump vtrue
 .sdp
 global scoreboardSecondary {Dark_purple}
-exit
+jump vtrue
 .sw
 global scoreboardSecondary {White}
-exit
+jump vtrue
 .sgr
 global scoreboardSecondary {Gray}
-exit
+jump vtrue
 .sdgr
 global scoreboardSecondary {Dark_gray}
-exit
+jump vtrue
 .sbl
 global scoreboardSecondary {Black}
+
+.vtrue
+
+if {vtrue==dark_red} tdr
+if {vtrue==red} tr
+if {vtrue==gold} tg
+if {vtrue==yellow} ty
+if {vtrue==dark_green} tdg
+if {vtrue==green} tgr
+if {vtrue==aqua} ta
+if {vtrue==dark_aqua} tda
+if {vtrue==dark_blue} tdb
+if {vtrue==blue} tb
+if {vtrue==light_purple} tlp
+if {vtrue==dark_purple} tdp
+if {vtrue==white} tw
+if {vtrue==gray} tgr
+if {vtrue==dark_gray} tdgr
+if {vtrue==black} tbl vfalse
+
+.tdr
+global scoreboardvTrue {Dark_red}
+jump vfalse
+.tr
+global scoreboardvTrue {Red}
+jump vfalse
+.tg
+global scoreboardvTrue {Gold}
+jump vfalse
+.ty
+global scoreboardvTrue {Yellow}
+jump vfalse
+.tdg
+global scoreboardvTrue {Dark_green}
+jump vfalse
+.tgr
+global scoreboardvTrue {Green}
+jump vfalse
+.ta
+global scoreboardvTrue {Aqua}
+jump vfalse
+.tda
+global scoreboardvTrue {Dark_aqua}
+jump vfalse
+.tdb
+global scoreboardvTrue {Dark_blue}
+jump vfalse
+.tb
+global scoreboardvTrue {Blue}
+jump vfalse
+.tlp
+global scoreboardvTrue {Light_purple}
+jump vfalse
+.tdp
+global scoreboardvTrue {Dark_purple}
+jump vfalse
+.tw
+global scoreboardvTrue {White}
+jump vfalse
+.tgr
+global scoreboardvTrue {Gray}
+jump vfalse
+.tdgr
+global scoreboardvTrue {Dark_gray}
+jump vfalse
+.tbl
+global scoreboardvTrue {Black}
+
+.vfalse
+if {vfalse==dark_red} fdr
+if {vfalse==red} fr
+if {vfalse==gold} fg
+if {vfalse==yellow} ty
+if {vfalse==dark_green} fdg
+if {vfalse==green} fgr
+if {vfalse==aqua} fa
+if {vfalse==dark_aqua} fda
+if {vfalse==dark_blue} fdb
+if {vfalse==blue} fb
+if {vfalse==light_purple} flp
+if {vfalse==dark_purple} fdp
+if {vfalse==white} fw
+if {vfalse==gray} fgr
+if {vfalse==dark_gray} fdgr
+if {vfalse==black} fbl Neutral
+
+.fdr
+global scoreboardvFalse {Dark_red}
+jump Neutral
+.fr
+global scoreboardvFalse {Red}
+jump Neutral
+.fg
+global scoreboardvFalse {Gold}
+jump Neutral
+.fy
+global scoreboardvFalse {Yellow}
+jump Neutral
+.fdg
+global scoreboardvFalse {Dark_green}
+jump Neutral
+.fgr
+global scoreboardvFalse {Green}
+jump Neutral
+.fa
+global scoreboardvFalse {Aqua}
+jump Neutral
+.fda
+global scoreboardvFalse {Dark_aqua}
+jump Neutral
+.fdb
+global scoreboardvFalse {Dark_blue}
+jump Neutral
+.fb
+global scoreboardvFalse {Blue}
+jump Neutral
+.flp
+global scoreboardvFalse {Light_purple}
+jump Neutral
+.fdp
+global scoreboardvFalse {Dark_purple}
+jump Neutral
+.fw
+global scoreboardvFalse {White}
+jump Neutral
+.fgr
+global scoreboardvFalse {Gray}
+jump Neutral
+.fdgr
+global scoreboardvFalse {Dark_gray}
+jump Neutral
+.fbl
+global scoreboardvFalse {Black}
+
+.Neutral
+if {neutral==dark_red} ndr
+if {neutral==red} nr
+if {neutral==gold} ng
+if {neutral==yellow} ny
+if {neutral==dark_green} ndg
+if {neutral==green} ngr
+if {neutral==aqua} na
+if {neutral==dark_aqua} nda
+if {neutral==dark_blue} ndb
+if {neutral==blue} nb
+if {neutral==light_purple} nlp
+if {neutral==dark_purple} ndp
+if {neutral==white} nw
+if {neutral==gray} ngr
+if {neutral==dark_gray} ndgr
+if {neutral==black} nbl danger
+
+.ndr
+global scoreboardNeutral {Dark_red}
+jump danger
+.nr
+global scoreboardNeutral {Red}
+jump danger
+.ng
+global scoreboardNeutral {Gold}
+jump danger
+.ny
+global scoreboardNeutral {Yellow}
+jump danger
+.ndg
+global scoreboardNeutral {Dark_green}
+jump danger
+.ngr
+global scoreboardNeutral {Green}
+jump danger
+.na
+global scoreboardNeutral {Aqua}
+jump danger
+.nda
+global scoreboardNeutral {Dark_aqua}
+jump danger
+.ndb
+global scoreboardNeutral {Dark_blue}
+jump danger
+.nb
+global scoreboardNeutral {Blue}
+jump danger
+.nlp
+global scoreboardNeutral {Light_purple}
+jump danger
+.ndp
+global scoreboardNeutral {Dark_purple}
+jump danger
+.nw
+global scoreboardNeutral {White}
+jump danger
+.ngr
+global scoreboardNeutral {Gray}
+jump danger
+.ndgr
+global scoreboardNeutral {Dark_gray}
+jump danger
+.nbl
+global scoreboardNeutral {Black}
+
+.danger
+if {danger==dark_red} ddr
+if {danger==red} dr
+if {danger==gold} dg
+if {danger==yellow} dy
+if {danger==dark_green} ddg
+if {danger==green} dgr
+if {danger==aqua} da
+if {danger==dark_aqua} dda
+if {danger==dark_blue} ddb
+if {danger==blue} db
+if {danger==light_purple} dlp
+if {danger==dark_purple} ddp
+if {danger==white} dw
+if {danger==gray} dgr
+if {danger==dark_gray} ddgr
+if {danger==black} dbl stop
+
+.ddr
+global scoreboardDanger {Dark_red}
+exit
+.dr
+global scoreboardDanger {Red}
+exit
+.dg
+global scoreboardDanger {Gold}
+exit
+.dy
+global scoreboardDanger {Yellow}
+exit
+.ddg
+global scoreboardDanger {Dark_green}
+exit
+.dgr
+global scoreboardDanger {Green}
+exit
+.da
+global scoreboardDanger {Aqua}
+exit
+.dda
+global scoreboardDanger {Dark_aqua}
+exit
+.ddb
+global scoreboardDanger {Dark_blue}
+exit
+.db
+global scoreboardDanger {Blue}
+exit
+.dlp
+global scoreboardDanger {Light_purple}
+exit
+.ddp
+global scoreboardDanger {Dark_purple}
+exit
+.dw
+global scoreboardDanger {White}
+exit
+.dgr
+global scoreboardDanger {Gray}
+exit
+.ddgr
+global scoreboardDanger {Dark_gray}
+exit
+.dbl
+global scoreboardDanger {Black}
 
 .stop
 exit
