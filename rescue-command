@@ -3,7 +3,6 @@
 killall global
 trace clear
 trace stop
-kickall
 tnt off
 loader stop
 if {fire} resFire resNoFire
