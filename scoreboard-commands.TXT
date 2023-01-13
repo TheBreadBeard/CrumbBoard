@@ -1,33 +1,38 @@
-#!CMD /scoreboard <type> (primary) (secondary)
+#!CMD /scoreboard <type> (<primary>) (<secondary>)
 
 var Off off
 var On on
 var Help help
 var Theme theme
+var Spacer spacer
 
-if {type==Off} off
-if {type==On} on
-if {type==Help} help
-if {type==Theme} theme
+if {type==Theme} JPtheme
+if {type==Off} JPoff
+if {type==On} JPon
+if {type==Help} JPhelp
+if {type==Spacer} JPspacer
 exit
 
-.help
-echo /scoreboard theme (primary) (secondary) : changes the colour scheme of the scoreboard
-echo /scoreboard theme list : shows all available colour names
-echo /scoreboard on : activates the scoreboard
-echo /scoreboard off : deactivates the scoreboard
+.JPhelp
+echo &8/&escoreboard theme &8[&eprimary&8]&e &8[&esecondary&8]&e &7: changes the colour scheme of the scoreboard
+echo &8/&escoreboard theme list &7: shows all available colour names
+echo &8/&escoreboard on &7: activates the scoreboard
+echo &8/&escoreboard off &7: deactivates the scoreboard
+echo &8/&escoreboard spacer &8[&espacer&8]&e
 exit
-.off
+.JPoff
 global scoreboardState off
 exit
-.on
+.JPon
 global scoreboardState on
 exit
-
-.theme
+.JPspacer
+global scoreboardSpacer {primary}
+exit
+.JPtheme
 
 var Dark_red &4
-var Red &c
+var Red &e
 var Gold &6
 var Yellow &e
 var Dark_green &2
@@ -61,7 +66,7 @@ var dark_gray dark_gray
 var black black
 var list list
 
-if {primary==list} list
+if {primary==list} JPlist
 if {primary==dark_red} pdr
 if {primary==red} pr
 if {primary==gold} pg
@@ -79,9 +84,9 @@ if {primary==gray} pgr
 if {primary==dark_gray} pdgr
 if {primary==black} pbl sec
 
-.list
+.JPlist
 echo &4 dark_red
-echo &c red
+echo &e red
 echo &6 gold
 echo &e yellow
 echo &2 dark_green
