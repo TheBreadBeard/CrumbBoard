@@ -47,7 +47,7 @@ var cNeutral {global.scoreboardNeutral}
 var cDanger {global.scoreboardDanger}&l
 
 #time
-echo {cPrim}Time: {cNeutral}{time}
+var E_Time {cNeutral}{time}
 
 #uptime
 var t {ticks/20}
@@ -71,7 +71,7 @@ var f {min}
 call format
 var min {f}
 
-echo {cPrim}Uptime: {cNeutral}{t}{min}{sec}
+var E_Uptime {cNeutral}{t}{min}{sec}
 jump afterformat
 
 #in: f, out: f
@@ -85,50 +85,47 @@ return
 .afterformat
 
 #Region
-echo {cSec}{cSpacer}Region{cSpacer}
-echo {cPrim}Type: {cNeutral}{const.region_type}
+var E_RegionType {cNeutral}{const.region_type}
 
 if  {const.tnt_onlytb==true} onlyTB noOnlyTB
 .onlyTB
-echo {cPrim}TNT: {cTrue}onlyTB
+var E_Tnt {cTrue}onlyTB
 jump 0-1
 .noOnlyTB
 if {const.tnt==true} tnt notnt
 .tnt
-echo {cPrim}TNT: {cDanger}on
+var E_Tnt {cDanger}on
 jump 0-1
 .notnt
-echo {cPrim}TNT: {cFalse}off
+var E_Tnt {cFalse}off
 jump 0-1
 
 .0-1
 if {const.freeze==true} freeze noFreeze
 .freeze
-echo {cPrim}Freeze: {cTrue}on
+var E_Freeze {cTrue}on
 jump 0-2
 .noFreeze
-echo {cPrim}Freeze: {cFalse}off
+var E_Freeze {cFalse}off
 jump 0-2
 
 .0-2
 if {const.protect==true} protect noProt
 .protect
-echo {cPrim}Protect: {cTrue}on
+var E_Protect {cTrue}on
 jump 0-3
 .noProt
-echo {cPrim}Protect: {cFalse}off
+var E_Protect {cFalse}off
 jump 0-3
 
 .0-3
 if {const.fire==true} fire noFire
 .fire
-echo {cPrim}Fire: {cTrue}on
+var E_Fire {cTrue}on
 jump 0-4
 .noFire
-echo {cPrim}Fire: {cFalse}off
+var E_Fire {cFalse}off
 jump 0-4
-
-echo
 
 .0-4
 if {const.tps>=const.tps_limit*80/100} tps1 tps2
@@ -144,7 +141,8 @@ jump tps
 var tps &e
 jump tps
 .tps
-echo {cPrim}TPS: {tps}{const.tps} &f| {cNeutral}{const.tps_limit}
+var E_Tps {tps}{const.tps}
+var E_Tpslimit {cNeutral}{const.tps_limit}
 
 .1
 
@@ -156,37 +154,39 @@ var trsingle IDLE_SINGLE
 
 if {const.trace_status==tridle} trIdle trNoIdle
 .trIdle
-echo {cPrim}Trace: {cFalse}off
+var E_Trace {cFalse}off
 jump 2
 .trNoIdle
 if {const.trace_status==trexpl} trExpl trNoExpl
 .trExpl
-echo {cPrim}Trace: {cTrue}auto {cNeutral}(explode)
+var E_Trace {cTrue}auto {cNeutral}(explode)
 jump 1-2
 .trNoExpl
 if {const.trace_status==trignite} trIgn trNoIgn
 .trIgn
-echo {cPrim}Trace: {cTrue}auto {cNeutral}(ignition)
+var E_Trace {cTrue}auto {cNeutral}(ignition)
 jump 1-2
 .trNoIgn
 if {const.trace_status==trsingle} trSing trNoSing
 .trSing
-echo {cPrim}Trace: {cTrue}single
+var E_Trace {cTrue}single
 jump 1-2
 .trNoSing
 if {const.trace==true} trON trNoOn
 .trON
-echo {cPrim}Trace: {cTrue}on
+var E_Trace {cTrue}on
 jump 1-2
 .trNoOn
-echo {cPrim}Trace: {cFalse}off
+var E_Trace {cFalse}off
 jump 2
 
 .1-2
-echo {cPrim}Time: &b{trace_time} Ticks
+var E_Tracetime {trace_time}
 jump 2
 
 .2
+var E_Tracetime 0
+
 var looff OFF
 var losetup SETUP
 var lorun RUNNING
@@ -196,41 +196,83 @@ var loend END
 
 if {const.loader_status==lorun} loRun loNoRun
 .loRun
-echo {cPrim}Loader: {cTrue}on
+var E_Loader {cTrue}on
 jump 3
 .loNoRun
 if {const.loader_status==losetup} loSetup loNoSetup
 .loSetup
-echo {cPrim}Loader: &bsetup
+var E_Loader loSetup loNoSetup
+.loSetup
+var E_Loader {cNeutral}setup
 jump 3
 .loNoSetup
 if {const.loader_status==losingle} loSingle loNoSingle
 .loSingle
-echo {cPrim}Loader: {cTrue}single
+var E_Loader {cTrue}single
 jump 3
 .loNoSingle
 if {const.loader_status==lopause} loPause loNoPause
 .loPause
-echo {cPrim}Loader: {cFalse}&opause
+var E_Loader {cFalse}pause
 jump 3
 .loNoPause
 if {const.loader_status==loend} loEnd loNoEnd
 .loEnd
-echo {cPrim}Loader: {cFalse}end
+var E_Loader {cFalse}end
 jump 3
 .loNoEnd
 if {const.loader_status==looff} loOff loNoOff
 .loOff
-echo {cPrim}Loader: {cFalse}off
+var E_Loader {cFalse}off
 jump 3
 .loNoOff
-echo {cPrim}Loader: {cTrue}on
+var E_Loader {cTrue}on
 jump 3
 
 .3
-echo {cSec}{cSpacer}Player{cSpacer}
+
 round posX {x}
 round posY {y}
 round posZ {z}
-echo {cPrim}{name}
-echo {cNeutral}{posX} {posY} {posZ}
+var E_Name {name}
+var E_Coords {posX} {posY} {posZ}
+
+#!!Hier kannst du das scoreboard bearbeiten!!
+
+#{E_Time} zeigt die zeit an
+##{E_Uptime} zeigt an wie lange der bau schon läuft
+##{E_RegionType} zeigt den region type an
+##{E_Tnt} zeigt den TNT status an
+##{E_Freeze} zeigt den status von freeze an
+##{E_Protect} zeigt den status von protect an
+##{E_Fire} zeigt den status von Fire an
+##{E_Tps} zeigt die TPS an
+##{E_Trace} zeigt den status vom Tracer an
+##{E_Tracetime} zeigt an wie lange der Tracer schon läuft
+##{E_Loader} zeigt den status vom Loader an
+##{E_Name} zeigt deinen Namen an
+##{E_Coords} zeigt deine Koordinaten an
+
+#Hier die infos zu den mit "/cb theme" verwaltbaren variablen
+##{cPrim} Primärfarbe - Standard gelb
+##{cSec} Sekundärfarbe - Standard weiß
+##{cNeutral} Neutrale/ standardfarbe - Standard grau
+##{cTrue} Farbe dafür wenn etwas an/ wahr ist - Standard grün
+##{cFalse} Farbe dafür wenn etwas aus/ falsch ist - Standard rot
+##{cDanger} Farbe für gefahr - Standard dunkelrot
+
+echo {cPrim}Time: {E_Time}
+echo {cPrim}Uptime: {E_Uptime}
+echo {cSec}{cSpacer}Region{cSpacer}{cSec}
+echo {cPrim}Type: {E_RegionType}
+echo {cPrim}TNT: {E_Tnt}
+echo {cPrim}Freeze: {E_Freeze}
+echo {cPrim}Protect: {E_Protect}
+echo {cPrim}Fire: {E_Fire}
+echo {cPrim}TPS: {E_Tps}
+echo {cPrim}Trace: {E_Trace}
+echo {cPrim}Runime: {cNeutral}{E_Tracetime}
+echo {cPrim}Loader: {E_Loader}
+echo {cSec}{cSpacer}Player{cSpacer}{cSec}
+echo {cPrim}{E_Name}
+echo {cNeutral}{E_Coords}
