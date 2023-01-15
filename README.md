@@ -9,3 +9,5 @@ to use the scripts, go on steamwar.de, go to your build server with "/b", then p
 To learn more about how the script system works use "/script"
 
 to manage the scoreboard use "/cb help"
+
+to change the layout of the scoreboard go into "scoreboard.TXT", scroll to the bottom, read the comments and have fun
