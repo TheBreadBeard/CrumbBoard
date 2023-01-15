@@ -247,6 +247,7 @@ var E_Coords {posX} {posY} {posZ}
 ##{E_Protect} zeigt den status von protect an
 ##{E_Fire} zeigt den status von Fire an
 ##{E_Tps} zeigt die TPS an
+##{E_Tpslimit} zeigt das TPS limit an
 ##{E_Trace} zeigt den status vom Tracer an
 ##{E_Tracetime} zeigt an wie lange der Tracer schon läuft
 ##{E_Loader} zeigt den status vom Loader an
