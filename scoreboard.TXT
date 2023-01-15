@@ -269,7 +269,7 @@ echo {cPrim}TNT: {E_Tnt}
 echo {cPrim}Freeze: {E_Freeze}
 echo {cPrim}Protect: {E_Protect}
 echo {cPrim}Fire: {E_Fire}
-echo {cPrim}TPS: {E_Tps}
+echo {cPrim}TPS: {E_Tps} &f| {E_Tpslimit} 
 echo {cPrim}Trace: {E_Trace}
 echo {cPrim}Runime: {cNeutral}{E_Tracetime}
 echo {cPrim}Loader: {E_Loader}
