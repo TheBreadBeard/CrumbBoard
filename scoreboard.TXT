@@ -1,43 +1,56 @@
 #!EVENT Scoreboard
 
+#am ende des scripts ist die config für die
+#anpassung des aussehen des scoreboards mit erklärung.
+#Um das script halbwegs vernünftig zu bearbeiten, kopiere
+#alles in ein textdokument und bearbeite es dort, oder
+#nutze die advanced script mod, diese kannst du mit dem
+#folgenden link herunterlanden:
+#https://steamwar.de/AdvancedScripts
+
 var on on
 
-if {tps<=1} rescue
-if {global.scoreboardState.isset} Stateset
-global scoreboardState on
-.Stateset
-if {global.scoreboardState==on} ScoreboardOn
-exit
-.rescue
-global scoreboard.State off
-#executes /rescue
+#rescue feature
+if {tps>=1} Statecheck
+ global scoreboard.State off
+##führt /rescue aus
 rescue
 exit
+
+#Prüft, ob das Scoreboard per command ausgeschaltet wurde
+.Statecheck
+if {global.scoreboardState.isset} Stateset
+ global scoreboardState on
+.Stateset
+ if {global.scoreboardState==on} ScoreboardOn
+  exit
+
 .ScoreboardOn
 
-#Theme and Spacer check/ default
+#prüft ob farben per command gesetzt wurden, wenn nicht, wechsel zu presets
 if {global.scoreboardPrimary.isset} primSet
-global scoreboardPrimary &e
+ global scoreboardPrimary &e
 .primSet
-if {global.scoreboardSecondary.isset} secset
-global scoreboardSecondary &f&l
+ if {global.scoreboardSecondary.isset} secset
+  global scoreboardSecondary &f&l
 .secset
-if {global.scoreboardvTrue.isset} sectrue
-global scoreboardvTrue &a
+ if {global.scoreboardvTrue.isset} sectrue
+  global scoreboardvTrue &a
 .sectrue
-if {global.scoreboardvFalse.isset} secfalse
-global scoreboardvFalse &c
+ if {global.scoreboardvFalse.isset} secfalse
+  global scoreboardvFalse &c
 .secfalse
-if {global.scoreboardNeutral.isset} secneutral
-global scoreboardNeutral &7
+ if {global.scoreboardNeutral.isset} secneutral
+  global scoreboardNeutral &7
 .secneutral
-if {global.scoreboardDanger.isset} secdanger
-global scoreboardDanger &4
+ if {global.scoreboardDanger.isset} secdanger
+  global scoreboardDanger &4
 .secdanger
-if {global.scoreboardSpacer.isset} spacerset
-global scoreboardSpacer --
+ if {global.scoreboardSpacer.isset} spacerset
+  global scoreboardSpacer --
 .spacerset
 
+#Variablenverkürzung
 var cPrim {global.scoreboardPrimary}
 var cSec {global.scoreboardSecondary}&l
 var cSpacer {global.scoreboardSpacer} 
@@ -74,77 +87,74 @@ var min {f}
 var E_Uptime {cNeutral}{t}{min}{sec}
 jump afterformat
 
-#in: f, out: f
+##in: f, out: f
 .format
-if {f>=10} woanders
-var f :0{f}
-return
+ if {f>=10} woanders
+ var f :0{f}
+ return
 .woanders
-var f :{f}
-return
+ var f :{f}
+ return
 .afterformat
 
 #Region
 var E_RegionType {cNeutral}{const.region_type}
 
-if  {const.tnt_onlytb==true} onlyTB noOnlyTB
+#TNT
+if {const.tnt_onlytb==true} onlyTB
+ if {const.tnt==true} tnt
+  var E_Tnt {cFalse}off
+  jump F_Freeze
 .onlyTB
-var E_Tnt {cTrue}onlyTB
-jump 0-1
-.noOnlyTB
-if {const.tnt==true} tnt notnt
+ var E_Tnt {cTrue}onlyTB
+ jump F_Freeze
 .tnt
-var E_Tnt {cDanger}on
-jump 0-1
-.notnt
-var E_Tnt {cFalse}off
-jump 0-1
+ var E_Tnt {cDanger}on
 
-.0-1
-if {const.freeze==true} freeze noFreeze
+#freeze
+.F_Freeze
+if {const.freeze==true} freeze
+ var E_Freeze {cFalse}off
+ jump F_Protect
 .freeze
-var E_Freeze {cTrue}on
-jump 0-2
-.noFreeze
-var E_Freeze {cFalse}off
-jump 0-2
+ var E_Freeze {cTrue}on
 
-.0-2
-if {const.protect==true} protect noProt
+#protect
+.F_Protect
+if {const.protect==true} protect
+ var E_Protect {cFalse}off
+ jump F_Fire
 .protect
-var E_Protect {cTrue}on
-jump 0-3
-.noProt
-var E_Protect {cFalse}off
-jump 0-3
+ var E_Protect {cTrue}on
 
-.0-3
-if {const.fire==true} fire noFire
+#fire
+.F_Fire
+ if {const.fire==true} fire
+  var E_Fire {cFalse}off
+  jump F_Tps
 .fire
-var E_Fire {cTrue}on
-jump 0-4
-.noFire
-var E_Fire {cFalse}off
-jump 0-4
+ var E_Fire {cTrue}on
 
-.0-4
-if {const.tps>=const.tps_limit*80/100} tps1 tps2
-.tps1
-var tps {cTrue}
-jump tps
-.tps2
-if {const.tps<=const.tps_limit*20/100} tps3 tps4
-.tps3
-var tps {cFalse}
-jump tps
-.tps4
-var tps &e
-jump tps
+#tps
+.F_Tps
+if {const.tps>=const.tps_limit*80/100} tps_normal
+ if {const.tps<=const.tps_limit*20/100} tps_low
+  var tpscolour &e
+  jump tps
+.tps_normal
+ var tpscolour &a
+ jump tps
+.tps_low
+ var tpscolour &c
 .tps
-var E_Tps {tps}{const.tps}
-var E_Tpslimit {cNeutral}{const.tps_limit}
+ var E_Tps {tpscolour}{const.tps}
+ var E_Tpslimit {cNeutral}{const.tps_limit}
 
 .1
+
+#Trace
+
+var E_Tracetime 0
 
 var troff OFF
 var tridle IDLE
@@ -152,41 +162,35 @@ var trexpl IDLE_AUTO_EXPLODE
 var trignite IDLE_AUTO_IGNITE
 var trsingle IDLE_SINGLE
 
-if {const.trace_status==tridle} trIdle trNoIdle
+if {const.trace_status==tridle} trIdle
+ if {const.trace_status==trexpl} trExpl
+  if {const.trace_status==trignite} trIgn
+   if {const.trace_status==trsingle} trSing
+    if {const.trace==true} trON
+     var E_Trace {cFalse}off
+     jump F_Loader
 .trIdle
-var E_Trace {cFalse}off
-jump 2
-.trNoIdle
-if {const.trace_status==trexpl} trExpl trNoExpl
+ var E_Trace {cFalse}off
+ jump F_Loader
 .trExpl
-var E_Trace {cTrue}auto {cNeutral}(explode)
-jump 1-2
-.trNoExpl
-if {const.trace_status==trignite} trIgn trNoIgn
+ var E_Trace {cTrue}auto {cNeutral}(explode)
+ jump F_Tracetime
 .trIgn
-var E_Trace {cTrue}auto {cNeutral}(ignition)
-jump 1-2
-.trNoIgn
-if {const.trace_status==trsingle} trSing trNoSing
+ var E_Trace {cTrue}auto {cNeutral}(ignition)
+ jump F_Tracetime
 .trSing
-var E_Trace {cTrue}single
-jump 1-2
-.trNoSing
-if {const.trace==true} trON trNoOn
+ var E_Trace {cTrue}single
+ jump F_Tracetime
 .trON
-var E_Trace {cTrue}on
-jump 1-2
-.trNoOn
-var E_Trace {cFalse}off
-jump 2
+ var E_Trace {cTrue}on
+ jump F_Tracetime
 
-.1-2
+.F_Tracetime
 var E_Tracetime {trace_time}
-jump 2
+jump F_Loader
 
-.2
-var E_Tracetime 0
-
+#Loader
+.F_Loader
 var looff OFF
 var losetup SETUP
 var lorun RUNNING
@@ -194,52 +198,49 @@ var losingle SINGLE
 var lopause PAUSE
 var loend END
 
-if {const.loader_status==lorun} loRun loNoRun
+if {const.loader_status==lorun} loRun
+ if {const.loader_status==losetup} loSetup
+  if {const.loader_status==losingle} loSingle
+   if {const.loader_status==lopause} loPause
+    if {const.loader_status==loend} loEnd
+     if {const.loader_status==looff} loOff
+var E_Loader {cTrue}on
+jump F_Playername
 .loRun
-var E_Loader {cTrue}on
-jump 3
-.loNoRun
-if {const.loader_status==losetup} loSetup loNoSetup
+ var E_Loader {cTrue}on
+ jump F_Playername
 .loSetup
-var E_Loader loSetup loNoSetup
-.loSetup
-var E_Loader {cNeutral}setup
-jump 3
-.loNoSetup
-if {const.loader_status==losingle} loSingle loNoSingle
+ var E_Loader {cNeutral}setup
+ jump F_Playername
 .loSingle
-var E_Loader {cTrue}single
-jump 3
-.loNoSingle
-if {const.loader_status==lopause} loPause loNoPause
+ var E_Loader {cTrue}single
+ jump F_Playername
 .loPause
-var E_Loader {cFalse}pause
-jump 3
-.loNoPause
-if {const.loader_status==loend} loEnd loNoEnd
+ var E_Loader {cFalse}pause
+ jump F_Playername
 .loEnd
-var E_Loader {cFalse}end
-jump 3
-.loNoEnd
-if {const.loader_status==looff} loOff loNoOff
+ var E_Loader {cFalse}end
+ jump F_Playername
 .loOff
-var E_Loader {cFalse}off
-jump 3
-.loNoOff
-var E_Loader {cTrue}on
-jump 3
+ var E_Loader {cFalse}off
 
-.3
+#Spielername
+.F_Playername
+var E_Name {name}
 
+#Spielerkoordinaten
 round posX {x}
 round posY {y}
 round posZ {z}
-var E_Name {name}
 var E_Coords {posX} {posY} {posZ}
 
 #!!Hier kannst du das scoreboard bearbeiten!!
+#am besten kopierst du das script mit
+#STRG+A, dann mit STRG+C, und bearbeitest es
+#in einer .txt datei. am besten mit Notepad++
 
-#{E_Time} zeigt die zeit an
+#Hier stehen alle funktionen die du nutzen kannst:
+##{E_Time} zeigt die zeit an
 ##{E_Uptime} zeigt an wie lange der bau schon läuft
 ##{E_RegionType} zeigt den region type an
 ##{E_Tnt} zeigt den TNT status an
@@ -254,13 +255,17 @@ var E_Coords {posX} {posY} {posZ}
 ##{E_Name} zeigt deinen Namen an
 ##{E_Coords} zeigt deine Koordinaten an
 
-#Hier die infos zu den mit "/cb theme" verwaltbaren variablen
+#Hier stehen die infos zu den mit "/cb theme" verwaltbaren variablen:
 ##{cPrim} Primärfarbe - Standard gelb
 ##{cSec} Sekundärfarbe - Standard weiß
 ##{cNeutral} Neutrale/ standardfarbe - Standard grau
 ##{cTrue} Farbe dafür wenn etwas an/ wahr ist - Standard grün
 ##{cFalse} Farbe dafür wenn etwas aus/ falsch ist - Standard rot
 ##{cDanger} Farbe für gefahr - Standard dunkelrot
+
+#Hier drunter wird das Scoreboard zusammengebaut. Du kannst es nach belieben anpassen. Eine Zeile im scoreboard erstellst du
+#druch das drücken von enter, und indem du in der neuen Zeile "echo" eingibst. Alles was in derselben zeile nach "echo"
+#steht, wird im scoreboard angezeigt.
 
 echo {cPrim}Time: {E_Time}
 echo {cPrim}Uptime: {E_Uptime}
