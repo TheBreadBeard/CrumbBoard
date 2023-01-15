@@ -277,7 +277,7 @@ echo {cPrim}Protect: {E_Protect}
 echo {cPrim}Fire: {E_Fire}
 echo {cPrim}TPS: {E_Tps} &f| {E_Tpslimit} 
 echo {cPrim}Trace: {E_Trace}
-echo {cPrim}Runime: {cNeutral}{E_Tracetime}
+echo {cPrim}Runtime: {cNeutral}{E_Tracetime}
 echo {cPrim}Loader: {E_Loader}
 echo {cSec}{cSpacer}Player{cSpacer}{cSec}
 echo {cPrim}{E_Name}
